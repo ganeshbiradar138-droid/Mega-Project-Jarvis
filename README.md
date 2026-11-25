@@ -1,67 +1,119 @@
-# Mega Project Jarvis
+# J.A.R.V.I.S — Personal AI Desktop Assistant
 
-A Python voice assistant that listens for the wake word **Jarvis**, recognizes spoken commands, opens websites, fetches top news headlines, and can answer general questions using a local Ollama model.
+A Python-based desktop voice assistant with a modern Tkinter interface. Jarvis can respond to typed questions, listen to voice commands, open frequently used websites, fetch top Indian news headlines, and use a local Ollama model for AI chat.
 
-## Features
+> **Current interface:** Desktop GUI built with Python Tkinter. This is a local desktop application, not a hosted website.
 
-- Voice input with SpeechRecognition
-- Text-to-speech responses with pyttsx3
-- Open common websites using voice commands
-- Fetch top headlines using NewsAPI
+## Preview of features
+
+- Dark dashboard-style interface with conversation history
+- Text chat input and voice-command button
+- Quick actions for Google, YouTube, GitHub, music, news, and help
+- Text-to-speech responses
 - Optional local AI chat using Ollama and `llama3.2:3b`
+- News headlines through NewsAPI
+
+## Project structure
+
+```
+Mega-Project-Jarvis/
+├── ui.py                 # Tkinter desktop user interface
+├── jarvis.py             # Assistant logic, AI, speech, news, commands
+├── main.py               # Earlier command-line version
+├── requirements.txt      # Python dependencies
+├── .env.example          # Environment variable template
+├── .gitignore
+└── README.md
+```
 
 ## Requirements
 
-- Python 3.10 or newer
-- A working microphone
+- Windows, macOS, or Linux with Python 3.10+
+- Microphone for voice commands
 - Internet connection for speech recognition and NewsAPI
-- Ollama installed and running for the optional AI chat feature
+- Ollama installed and running for local AI chat (optional)
 
-## Setup
+Tkinter is included with most standard Python installations. On some Linux distributions, install the system package `python3-tk`.
 
-1. Clone this repository:
+## Installation
+
+1. Clone the repository:
+
    ```bash
    git clone https://github.com/ganeshbiradar138-droid/Mega-Project-Jarvis.git
    cd Mega-Project-Jarvis
    ```
+
 2. Create and activate a virtual environment:
-   ```bash
+
+   **Windows**
+   ```powershell
    python -m venv .venv
-   # Windows
    .venv\Scripts\activate
-   # macOS/Linux
+   ```
+
+   **macOS / Linux**
+   ```bash
+   python3 -m venv .venv
    source .venv/bin/activate
    ```
-3. Install dependencies:
+
+3. Install Python dependencies:
+
    ```bash
    pip install -r requirements.txt
    ```
-4. Copy `.env.example` to `.env` and add your own NewsAPI key. Set the `NEWS_API_KEY` environment variable in your terminal or load `.env` with your preferred environment-variable loader.
-5. For AI chat, install Ollama, start it, and pull the model:
+
+4. Configure NewsAPI (optional). Copy `.env.example` to `.env`, add your own key, and set `NEWS_API_KEY` in your environment before launching. The application reads environment variables; it does not automatically load the `.env` file.
+
+   **PowerShell (current terminal only):**
+   ```powershell
+   $env:NEWS_API_KEY="your_newsapi_key"
+   ```
+
+   **macOS / Linux (current terminal only):**
+   ```bash
+   export NEWS_API_KEY="your_newsapi_key"
+   ```
+
+5. For AI chat, install Ollama, start the Ollama service, and download the model:
+
    ```bash
    ollama pull llama3.2:3b
    ```
-6. Run the main assistant:
-   ```bash
-   python jarvis.py
-   ```
 
-## Voice commands
+## Run the desktop application
 
-- Say **Jarvis** to activate the assistant.
-- Say **open YouTube**, **open Google**, **open GitHub**, etc.
-- Say **news** to hear the latest headlines.
-- Ask a general question to use the local Ollama model.
-- Say **stop** to end the active command session.
-- Press **Ctrl+C** to exit.
+```bash
+python ui.py
+```
+
+To run the older terminal version instead:
+
+```bash
+python main.py
+```
+
+## How to use
+
+- Type a question or command in the message box and press **Send**.
+- Press **Voice** and speak after the listening status appears.
+- Use the quick-action buttons to open websites, play music, fetch news, or view help.
+- Example commands: `open YouTube`, `open Google`, `open GitHub`, `play music`, `news`.
+- The app uses Ollama for general AI questions when it is installed and running.
+
+## Important notes
+
+- Voice recognition uses Google's speech-recognition service and therefore requires internet access.
+- Ollama runs the language model locally, but the model must be downloaded separately.
+- The microphone button listens for one command at a time; it does not run a continuous wake-word listener.
+- If microphone access fails, check OS microphone permissions and your audio input device.
+- NewsAPI may have plan, country, or request limits.
 
 ## Security
 
-Never commit your real API keys or `.env` file. Keep credentials in environment variables. The repository intentionally excludes virtual environments, Python cache files, and local secrets.
+Never commit real API keys, passwords, or your `.env` file. Keep secrets in environment variables. If an API key was previously exposed in a source file or ZIP, revoke it and generate a new one. The `.gitignore` excludes local virtual environments, Python cache files, and `.env`.
 
-## Project files
+## Limitations
 
-- `jarvis.py` – current assistant with optional Ollama chat
-- `main.py` – earlier command-based assistant version
-- `requirements.txt` – Python dependencies
-- `.env.example` – environment-variable template
+This project has not been packaged as an installer or deployed as a web service. Feature availability depends on the local Python environment, microphone setup, internet connection, NewsAPI key, and Ollama installation.
